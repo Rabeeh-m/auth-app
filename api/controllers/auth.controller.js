@@ -4,6 +4,7 @@ import { errorHandler } from "../utils/error.js";
 import jwt from 'jsonwebtoken'
 
 
+
 export const signup = async (req, res, next) => {
     const {username, email, password} = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10)
@@ -28,7 +29,7 @@ export const signin = async (req, res, next) => {
         if (!validPassword) return next(errorHandler(401, 'Invalid credentials'));
         const {password: hashedPassword, ...rest} = validUser._doc;
 
-        const token = jwt.sign({id:validUser._id}, process.env.JWT_SECRET);
+        const token = jwt.sign({id:validUser._id}, 'nbwdj5df4s38dsgv');
         const expiryDate = new Date(Date.now() + 3600000);
         res
             .cookie('access_token', token, {httpOnly: true, expires: expiryDate})
